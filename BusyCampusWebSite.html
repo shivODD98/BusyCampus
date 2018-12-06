@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <title> BusyCampus </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type = "text/javascript" src="BusyCampus.js"></script> 
+            <script 
+                async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQuzgJzQ67o95fpGPRyXbm7lw70ADQ-3w&callback=initMap" 
+                type="text/javascript">
+            </script>
+                    <style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+
+  background-color: #333;
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  width: 100%;
+}
+
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 10px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: #f1f1f1;
+  color: black;
+}
+
+.navbar a.active {
+  background-color: #f4ce42;
+  color: white;
+}
+
+.hide{
+  display:none;
+  bottom: 0;
+}
+.show{
+  display:block;
+}
+
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 10%;
+  right: 15px;
+ /* border: 3px solid #f1f1f1;*/
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: #333;
+  color:#ddd
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something 
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+*/
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #f4ce42;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+/* *{
+    margin: 0;
+    padding: 0;
+} */
+#map{
+    position: absolute;
+    z-index:2;
+    height:93.25vh;
+    width: 100%;
+}
+
+                            
+    </style>
+</head>
+
+<body>
+<div class="navbar">
+    <a href="#home" class="active" onclick="return reCenter()" >Home</a>
+    <a href="#login" onclick="return openLogin()" >Login</a>
+    <a href="#friends"  id="Friends" onclick="return placeFriendsMarkers()">My Friends </a>
+    <a href="#fav" id="favs" onclick="return showFavAreas()" >Favourite Areas</a>
+    <a href="#addf" type="button" name="answer" value="Add Freinds" onclick="addFriendButtonClick()" >Add Freinds</a>
+    <input class="hide" type="text" id="textInput" placeholder="Enter Username HERE!" />
+    <input class="hide" type="button" id="add" name="answer" value="ADD Freind!" onclick="addFreind()" />
+</div>
+
+
+<div class="form-popup" id="myForm">
+        <form class="form-container">
+          <h1>Vote!</h1>
+          <label for="theVote"><b>Your Vote:</b></label>
+          <input type="text" id="submitVal" placeholder="Enter Busyness Level (1-5)," name="vote" >
+          <button type="button" class="btn" onclick="getSubmition()" >Submit</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+      </div>
+      
+<div class="form-popup" id="loginForm">
+    <form class="form-container">
+        <h1>Login</h1>
+    
+        <label for="email"><b>Email</b></label>
+        <input id ="loginUsername" type="text" placeholder="Enter Email" name="email" required>
+    
+        <label for="psw"><b>Password</b></label>
+        <input id ="loginPass" type="password" placeholder="Enter Password" name="psw" required>
+    
+        <button type="button" class="btn" onclick="getLoginInfo()">Login</button>
+        <button type="button" class="btn reg" onclick="openRegForm()">Register</button>
+        <button type="button" class="btn cancel" onclick="closeLoginForm()">Close</button>
+    </form>
+    </div>
+
+
+
+
+    <div class="form-popup" id="RegisterForm">
+            <form class="form-container">
+                <h1>Login</h1>
+            
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" required>
+            
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+            
+                <button type="button" class="btn">Register!</button>
+                <button type="button" class="btn cancel" onclick="closeRegForm()">Close</button>
+            </form>
+            </div>
+
+
+
+<div 
+    id="map" >
+</div>
+</body>
+
+</html>
